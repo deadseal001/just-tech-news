@@ -16,7 +16,7 @@ class Post extends Model {
                     'id',
                     'post_url',
                     'title',
-                    'create_at',
+                    'created_at',
                     [
                         sequelize.literal('(select count(*) from vote where post.id = vote.post_id)'),
                         'vote_count'

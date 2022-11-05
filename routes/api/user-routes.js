@@ -21,7 +21,19 @@ router.get('/:id',(req,res)=>{
         attributes: { exclude: ['password']},//hide password
         where: {
             id: req.params.id
-        }
+        },
+        include: [
+            {
+                model: Post,
+                attributes:['id', 'title', 'post_url','created_at']
+            },
+            {
+                model: Post,
+                attributes: ['title'],
+                through: Vote,
+                as: 'voted_posts'
+            }
+        ]
     })
     .then(dbUserData =>{
         if (!dbUserData) {
@@ -91,7 +103,7 @@ router.put('/:id',(req,res)=>{
             res.status(404).json({message: 'No user found with this id'});
             return;
         }
-        res.json(dbUserData);
+        res.json(dbUserData);//what to update
     })
     .catch(err=>{
         console.log(err);

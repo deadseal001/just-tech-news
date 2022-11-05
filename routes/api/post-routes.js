@@ -44,15 +44,9 @@ router.get('/:id',(req,res)=>{
         ],
         include:[
             {
-                model: Post,
-                attributes: ['id', 'title', 'post_url', 'created_at']
+                model: User,
+                attributes: ['username']
             },
-            {
-                model:Post,
-                attributes: ['title'],
-                through: Vote,
-                as: 'voted_posts'
-            }
         ]
     })
     .then(dbPostData=>{
